@@ -7,6 +7,6 @@ namespace CurrencyQuotationMinimal.Api.Services.Concrats
     public interface IQuotationApi
     {
         [Get("/last/{currencies}")]
-        Task<IDictionary<string, Currency>> Get(string currencies);
+        Task<IDictionary<string, Currency>> GetCurrencies(string currencies);
     }
 }

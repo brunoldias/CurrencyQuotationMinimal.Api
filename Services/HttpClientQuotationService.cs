@@ -12,9 +12,9 @@ namespace CurrencyQuotationMinimal.Api.Services
         }
         public async Task<IDictionary<string, Currency>> GetAsync(string currencies)
         {
-            var quoatation = await _quotationApi.Get(currencies);
+            var currency = await _quotationApi.GetCurrencies(currencies);
 
-            return quoatation;
+            return currency;
         }
     }
 }
