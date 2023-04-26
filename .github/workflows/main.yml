@@ -8,6 +8,7 @@ on:
   
 env: 
  AZURE_WEBAPP_NAME: currency-quotation-app
+ AZURE_WEBAPP_PACKAGE_PATH: "./publish"
   
 jobs:
  publish: 
@@ -31,7 +32,7 @@ jobs:
      run: dotnet build ./CurrencyQuotationMinimal.Api.sln --configuration Release
      
    - name: Deployment
-     uses: actions/webapps-deploy@v2
+     uses: azure/webapps-deploy@v2
      with:
       app-name: ${{ env.AZURE_WEBAPP_NAME }}
       publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
