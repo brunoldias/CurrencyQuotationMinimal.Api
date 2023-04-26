@@ -26,6 +26,6 @@ jobs:
      run: dotnet build ./CurrencyQuotationMinimal.Api.sln --configuration Release --no-restore
      
    - name: Publish
-     run: dotnet build ./CurrencyQuotationMinimal.Api.sln --configuration Release --no-build
+     run: dotnet publish -c Release -o ./CurrencyQuotationMinimal.Api.sln -r linux-x64 --self-contained true /p:UseAppHost=tru
        
  
