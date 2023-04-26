@@ -1,0 +1,1 @@
+# CurrencyQuotationMinimal.Api
