@@ -1,0 +1,41 @@
+name: Publish
+
+on:
+ workflow_dispatch:
+ push:
+  branches:
+  - master
+  
+env: 
+ AZURE_WEBAPP_NAME: currency-quotation-app
+ AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+  
+jobs:
+ publish: 
+  runs-on: ubuntu-latest
+
+  steps:
+   - uses: actions/checkout@v3
+   
+   - name: Setup .NET
+     uses: actions/setup-dotnet@v3
+     with: 
+        dotnet-version: '7.0.x'
+      
+   - name: Restore
+     run: dotnet restore ./CurrencyQuotationMinimal.Api.sln
+     
+   - name: Build
+     run: dotnet build ./CurrencyQuotationMinimal.Api.sln --configuration Release --no-restore
+       
+   - name: Publish
+     run: dotnet build ./CurrencyQuotationMinimal.Api.sln --configuration Release  '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+     
+   - name: Deployment
+     uses: azure/webapps-deploy@2
+     with:
+      app-name: ${{ env.AZURE_WEBAPP_NAME }}
+      publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+      package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+       
+ 
