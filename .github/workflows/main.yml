@@ -4,11 +4,11 @@ on:
  workflow_dispatch:
  push:
   branches:
-  - master
+  - main
   
 env: 
  AZURE_WEBAPP_NAME: currency-quotation-app
- AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+ AZURE_WEBAPP_PACKAGE_PATH: "."
   
 jobs:
  publish: 
@@ -29,13 +29,13 @@ jobs:
      run: dotnet build ./CurrencyQuotationMinimal.Api.sln --configuration Release --no-restore
        
    - name: Publish
-     run: dotnet build ./CurrencyQuotationMinimal.Api.sln --configuration Release  '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+     run: dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/CurrencyQuotationMinimal.Api'
      
    - name: Deployment
-     uses: azure/webapps-deploy@2
+     uses: azure/webapps-deploy@v2
      with:
       app-name: ${{ env.AZURE_WEBAPP_NAME }}
       publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-      package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/CurrencyQuotationMinimal.Api'
        
  
