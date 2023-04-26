@@ -29,13 +29,13 @@ jobs:
      run: dotnet build ./CurrencyQuotationMinimal.Api.sln --configuration Release --no-restore
        
    - name: Publish
-     run: dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/CurrencyQuotationMinimal.Api.sln'
+     run: dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/CurrencyQuotationMinimal.Api'
      
    - name: Deployment
      uses: azure/webapps-deploy@v2
      with:
       app-name: ${{ env.AZURE_WEBAPP_NAME }}
       publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-      package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/CurrencyQuotationMinimal.Api.sln'
+      package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/CurrencyQuotationMinimal.Api'
        
  
