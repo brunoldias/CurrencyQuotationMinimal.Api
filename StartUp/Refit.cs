@@ -7,7 +7,7 @@ namespace CurrencyQuotationMinimal.Api.StartUp
     public static class Refit
     {
         public static void AddRefit(this IServiceCollection services)
-        {  // comment
+        {   
             var serviceProvider = services.BuildServiceProvider();
             var appConfig = serviceProvider.GetService<IConfiguration>().GetSection("QuotationApi").Get<AppConfigSettings>();
 
